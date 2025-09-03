@@ -74,7 +74,12 @@ async def update_servo(bt_socket, sVal):
             if a != temp[num - 1]:
                 cmd = str(num) + " " + str(a)
                 print(cmd)
-                bt_socket.send(cmd.encode())
+
+                if bt_socket:
+                    try:
+                        bt_socket.send(cmd.encode())
+                    except Exception as e:
+                        print(f"Bluetooth send error: {e}")
 
             num += 1
         temp = s
@@ -124,11 +129,16 @@ def main():
     HC06_ADDRESS = "00:22:11:00:04:B8"
     PORT = 1  # Standard port for Bluetooth SPP
 
-    # Create a Bluetooth socket
-    bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-
-    # Connect to the HC-06
-    bt_socket.connect((HC06_ADDRESS, PORT))
+    # Try to create a Bluetooth socket
+    bt_socket = None
+    try:
+        bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+        bt_socket.connect((HC06_ADDRESS, PORT))
+        print("Bluetooth connected successfully")
+    except Exception as e:
+        print(f"Bluetooth connection failed: {e}")
+        print("Running in demo mode without Bluetooth")
+        bt_socket = None
 
     # Creates asyncio event loop
     loop = asyncio.new_event_loop()
@@ -140,6 +150,6 @@ def main():
     root.mainloop()
 
 
-# loading_page()
+loading_page()
 main()
 
