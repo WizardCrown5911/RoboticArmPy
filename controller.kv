@@ -1,0 +1,156 @@
+
+<MainWidget>:
+
+    canvas:
+        Color:
+            rgba: 183 / 255., 187 / 255., 192 / 255., 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+
+    do_default_tab: False
+
+    # Create tab 1
+    TabbedPanelItem:
+        text: 'Controller'
+
+
+        GridLayout:
+
+            cols: 3
+            rows: 6
+
+
+            canvas:
+                Color:
+                    rgba: 183 / 255., 187 / 255., 192 / 255., 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+#########################################################################################
+
+            Label:
+                text:"Servo 1"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s1.text= str(int(self.value))
+
+            Label:
+                id:s1
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 2"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s2.text= str(int(self.value))
+
+            Label:
+                id:s2
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 3"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s3.text= str(int(self.value))
+
+            Label:
+                id:s3
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 4"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s4.text= str(int(self.value))
+
+            Label:
+                id:s4
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 5"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s5.text= str(int(self.value))
+
+            Label:
+                id:s5
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 6"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value:s6.text= str(int(self.value))
+
+            Label:
+                id:s6
+                text:"90"
+
+#########################################################################################
+
+    # Create 2nd tab
+    TabbedPanelItem:
+        text: 'IK'
+
+
+    # Create 3rd tab
+    TabbedPanelItem:
+        text: 'Voice'
