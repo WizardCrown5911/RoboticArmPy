@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5848d57-6e55-4039-8a8c-a966b4a94eaa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/KivyTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controller.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KivyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/KivyTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller.kv" beforeDir="false" afterPath="$PROJECT_DIR$/controller.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

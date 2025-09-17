@@ -38,15 +38,18 @@
                 width: 100
 
             Slider:
+                id:s1
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s1.text= str(int(self.value))
+                on_value: root.set_slider(s1)
+                on_value:slider1.text= str(int(self.value))
+
 
             Label:
-                id:s1
+                id:slider1
                 text:"90"
 
 #########################################################################################
@@ -57,15 +60,17 @@
                 width: 100
 
             Slider:
+                id:s2
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s2.text= str(int(self.value))
+                on_value: root.set_slider(s2)
+                on_value:slider2.text= str(int(self.value))
 
             Label:
-                id:s2
+                id:slider2
                 text:"90"
 
 #########################################################################################
@@ -76,15 +81,17 @@
                 width: 100
 
             Slider:
+                id:s3
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s3.text= str(int(self.value))
+                on_value: root.set_slider(s3)
+                on_value:slider3.text= str(int(self.value))
 
             Label:
-                id:s3
+                id:slider3
                 text:"90"
 
 #########################################################################################
@@ -95,15 +102,17 @@
                 width: 100
 
             Slider:
+                id:s4
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s4.text= str(int(self.value))
+                on_value: root.set_slider(s4)
+                on_value:slider4.text= str(int(self.value))
 
             Label:
-                id:s4
+                id:slider4
                 text:"90"
 
 #########################################################################################
@@ -114,15 +123,17 @@
                 width: 100
 
             Slider:
+                id:s5
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s5.text= str(int(self.value))
+                on_value: root.set_slider(s5)
+                on_value:slider5.text= str(int(self.value))
 
             Label:
-                id:s5
+                id:slider5
                 text:"90"
 
 #########################################################################################
@@ -133,15 +144,17 @@
                 width: 100
 
             Slider:
+                id:s6
                 orientation: "horizontal"
                 min: 0  # minimum value of Slider
                 max: 180 # maximum value of Slider
                 value: 90  # initial value of Slider
 
-                on_value:s6.text= str(int(self.value))
+                on_value: root.set_slider(s6)
+                on_value:slider6.text= str(int(self.value))
 
             Label:
-                id:s6
+                id:slider6
                 text:"90"
 
 #########################################################################################
