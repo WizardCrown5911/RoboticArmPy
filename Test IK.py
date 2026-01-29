@@ -11,7 +11,7 @@ import math
 
 chain = ikpy.chain.Chain.from_urdf_file("robot.urdf", active_links_mask=[False, True, True, True, True, True])
 
-target_position = [2, 0, 0]
+target_position = [1, 1, 1]
 
 target_orientation = [0, 0, -1]
 
