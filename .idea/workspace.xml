@@ -3,7 +3,6 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-
   <component name="ChangeListManager">
     <list default="true" id="c5848d57-6e55-4039-8a8c-a966b4a94eaa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/RoboticArmPy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RoboticArmPy.iml" afterDir="false" />
@@ -18,7 +17,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -26,44 +24,35 @@
       </list>
     </option>
   </component>
-
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;WizardCrown5911&quot;
   }
 }</component>
-
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/WizardCrown5911/RoboticArmPy&quot;,
     &quot;accountId&quot;: &quot;6fc54572-8f78-465c-8520-c31999769ed9&quot;
   }
 }</component>
-
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
-
   <component name="ProjectId" id="329y9vO856AzQdkwgN2TzfzIZYK" />
-
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.Test IK.executor&quot;: &quot;Run&quot;,
@@ -77,15 +66,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
-      </set>
-    </attachedChunks>
-  </component>
-
   <component name="RunManager">
     <configuration name="KivyTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RoboticArmPy" />
@@ -114,9 +94,14 @@
       </list>
     </recent_temporary>
   </component>
-
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c5848d57-6e55-4039-8a8c-a966b4a94eaa" name="Changes" comment="" />
@@ -129,15 +114,12 @@
     </task>
     <servers />
   </component>
-
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.spec" />
   </component>
-
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
