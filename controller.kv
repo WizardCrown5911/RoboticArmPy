@@ -1,0 +1,169 @@
+
+<MainWidget>:
+
+    canvas:
+        Color:
+            rgba: 183 / 255., 187 / 255., 192 / 255., 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+
+    do_default_tab: False
+
+    # Create tab 1
+    TabbedPanelItem:
+        text: 'Controller'
+
+
+        GridLayout:
+
+            cols: 3
+            rows: 6
+
+
+            canvas:
+                Color:
+                    rgba: 183 / 255., 187 / 255., 192 / 255., 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+#########################################################################################
+
+            Label:
+                text:"Servo 1"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s1
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s1)
+                on_value:slider1.text= str(int(self.value))
+
+
+            Label:
+                id:slider1
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 2"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s2
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s2)
+                on_value:slider2.text= str(int(self.value))
+
+            Label:
+                id:slider2
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 3"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s3
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s3)
+                on_value:slider3.text= str(int(self.value))
+
+            Label:
+                id:slider3
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 4"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s4
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s4)
+                on_value:slider4.text= str(int(self.value))
+
+            Label:
+                id:slider4
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 5"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s5
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s5)
+                on_value:slider5.text= str(int(self.value))
+
+            Label:
+                id:slider5
+                text:"90"
+
+#########################################################################################
+
+            Label:
+                text:"Servo 6"
+                size_hint_x: None
+                width: 100
+
+            Slider:
+                id:s6
+                orientation: "horizontal"
+                min: 0  # minimum value of Slider
+                max: 180 # maximum value of Slider
+                value: 90  # initial value of Slider
+
+                on_value: root.set_slider(s6)
+                on_value:slider6.text= str(int(self.value))
+
+            Label:
+                id:slider6
+                text:"90"
+
+#########################################################################################
+
+    # Create 2nd tab
+    TabbedPanelItem:
+        text: 'IK'
+
+
+    # Create 3rd tab
+    TabbedPanelItem:
+        text: 'Voice'
