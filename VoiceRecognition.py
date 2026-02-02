@@ -1,77 +1,38 @@
-# Start by making sure the `assemblyai` and `pyaudio` packages are installed.
-# If not, you can install it by running the following command:
-# pip install assemblyai pyaudio
-#
-# Note: Some macOS users may need to use `pip3` instead of `pip`.
+import speech_recognition as sr
 
-import assemblyai as aai
-from assemblyai.streaming.v3 import (
-     BeginEvent,
-    StreamingClient,
-    StreamingClientOptions,
-    StreamingError,
-    StreamingEvents,
-    StreamingParameters,
-    StreamingSessionParameters,
-    TerminationEvent,
-    TurnEvent,
-)
-import logging
-from typing import Type
+def recognize_speech_from_mic():
+    recognizer = sr.Recognizer()
 
-# Replace with your chosen API key, this is the "default" account api key
-api_key = "ec959cf649a34026ac2fb958e14cbacf"
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-def on_begin(self: Type[StreamingClient], event: BeginEvent):
-    print(f"Session started: {event.id}")
-
-def on_turn(self: Type[StreamingClient], event: TurnEvent):
-    print(f"{event.transcript} ({event.end_of_turn})")
-
-    if event.end_of_turn and not event.turn_is_formatted:
-        params = StreamingSessionParameters(
-            format_turns=True,
-        )
-
-        self.set_params(params)
-
-def on_terminated(self: Type[StreamingClient], event: TerminationEvent):
-    print(
-        f"Session terminated: {event.audio_duration_seconds} seconds of audio processed"
-    )
-
-def on_error(self: Type[StreamingClient], error: StreamingError):
-    print(f"Error occurred: {error}")
-
-def main():
-    client = StreamingClient(
-        StreamingClientOptions(
-            api_key=api_key,
-            api_host="streaming.assemblyai.com",
-        )
-    )
-
-    client.on(StreamingEvents.Begin, on_begin)
-    client.on(StreamingEvents.Turn, on_turn)
-    client.on(StreamingEvents.Termination, on_terminated)
-    client.on(StreamingEvents.Error, on_error)
-
-    client.connect(
-        StreamingParameters(
-            sample_rate = 16000,
-            format_turns = True
-        )
-    )
-
+    # Use the default microphone as the audio source
     try:
-        client.stream(
-            aai.extras.MicrophoneStream(sample_rate=16000)
-        )
-    finally:
-        client.disconnect(terminate=True)
+        with sr.Microphone() as source:
+            print("Adjusting for ambient noise... Please wait.")
+            recognizer.adjust_for_ambient_noise(source, duration=1)
+            print("Listening... Speak now.")
+            audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
+
+        try:
+            API= "OLBSHUX5DGNUTIB5RMIE2MMF657YNRIM"
+            text = recognizer.recognize_wit(audio, key=API, )
+            print(text)
+            return text
+        except sr.UnknownValueError:
+            print("Wit could not understand audio")
+        except sr.RequestError as e:
+            print(f"Could not request results from Wit; {e}")
+
+    except sr.WaitTimeoutError:
+        print("Listening timed out while waiting for phrase to start.")
+    except OSError as e:
+        print(f"Microphone error: {e}")
 
 if __name__ == "__main__":
-    main()
+    text=str(recognize_speech_from_mic()).lower()
+    if "move" in text and "up" in text:
+        print("moving up")
+    if "move" in text and "left" in text:
+        print("moving left")
+    if "move" in text and "right" in text:
+        print("moving right")
+    if "move" in text and "down" in text:
+        print("moving down")
