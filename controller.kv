@@ -163,7 +163,63 @@
     TabbedPanelItem:
         text: 'IK'
 
+        GridLayout:
+            padding: 20
+            spacing: 10
+            cols: 2
+            rows: 6
+
+
+            canvas:
+                Color:
+                    rgba: 183 / 255., 187 / 255., 192 / 255., 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text:"Target Position"
+                size_hint_x: None
+                width: 100
+                height: 100
+
+
+            TextInput:
+                text: "0,0,0"
+                multiline: False
+                hint_text: "eg. 1,2,3"
+                size_hint: None,None
+                width: 100
+                height: 100
+
+
+            Label:
+                text:"Target orientation"
+                size_hint_x: None
+                width: 100
+                height: 100
+
+            TextInput:
+                text: "0,0,0"
+                multiline: False
+                hint_text: "eg. 1,2,3"
+                size_hint: None,None
+                width: 100
+                height: 100
 
     # Create 3rd tab
     TabbedPanelItem:
         text: 'Voice'
+
+        GridLayout:
+
+            cols: 3
+            rows: 6
+
+
+            canvas:
+                Color:
+                    rgba: 183 / 255., 187 / 255., 192 / 255., 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size

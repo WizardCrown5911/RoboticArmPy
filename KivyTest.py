@@ -10,6 +10,8 @@ import asyncio
 import threading
 import socket
 
+from TestIK import plot
+
 # Ensures correct version of kivy is used
 kivy.require('2.3.1')
 
