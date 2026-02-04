@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5848d57-6e55-4039-8a8c-a966b4a94eaa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TestIK.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ControllerSupport.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KivyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/KivyTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test IK.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/controller.kv" beforeDir="false" afterPath="$PROJECT_DIR$/controller.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +53,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.ControllerSupport.executor&quot;: &quot;Run&quot;,
     &quot;Python.KivyTest.executor&quot;: &quot;Run&quot;,
     &quot;Python.Test IK.executor&quot;: &quot;Run&quot;,
     &quot;Python.VoiceRecognition.executor&quot;: &quot;Run&quot;,

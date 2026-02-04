@@ -11,12 +11,33 @@ import threading
 import socket
 
 from TestIK import plot
+from ControllerSupport import XboxController
 
 # Ensures correct version of kivy is used
 kivy.require('2.3.1')
 
 sVal = [90, 90, 90, 90, 90, 90]
 
+def toggle_claw():
+    pass
+
+def move_x(direction):
+    pass
+
+def move_y(direction):
+    pass
+
+def move_z(direction):
+    pass
+
+def rotate_x(direction):
+    pass
+
+def rotate_y(direction):
+    pass
+
+def rotate_z(direction):
+    pass
 
 # Function that repeats every second to update the servos
 async def update_servo(bt_socket):
@@ -48,6 +69,22 @@ async def update_servo(bt_socket):
         temp = s
         await asyncio.sleep(1)
 
+async def update_controller(joystick):
+    while True:
+        input=joystick.read()
+        if input[0] != 1:
+            toggle_claw()
+
+        if input[1] != 0:
+            move_x(input[1])
+        if input[2] != 0:
+            move_y(input[1])
+        if input[1] != 0 and input[5] !=0:
+            move_z(input[1])
+        if input[1] != 0:
+            move_x(input[1])
+
+        await asyncio.sleep(0.5)
 
 def start_loop(loop):
     asyncio.set_event_loop(loop)
@@ -89,13 +126,19 @@ if __name__ == "__main__":
         print("Running in demo mode without Bluetooth")
         bt_socket = None
 
+    joystick = XboxController()
+
     # Creates asyncio event loop
-    loop = asyncio.new_event_loop()
-    asyncio.run_coroutine_threadsafe(update_servo(bt_socket), loop)
+    loop1 = asyncio.new_event_loop()
+    asyncio.run_coroutine_threadsafe(update_servo(bt_socket), loop1)
+    asyncio.run_coroutine_threadsafe(update_controller(joystick), loop1)
 
     # Runs this loop in a separate thread
-    threading.Thread(target=start_loop, args=(loop,), daemon=True).start()
+    threading.Thread(target=start_loop, args=(loop1,), daemon=True).start()
+
+
 
     # The app is initialized at runtime
     # And its run method is called
     Controller().run()
+
