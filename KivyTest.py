@@ -3,41 +3,63 @@ import kivy
 
 # From kivy import the classes that will be used in the program
 from kivy.app import App
-
 from kivy.uix.tabbedpanel import TabbedPanel
 
+# Import async and threading modules
 import asyncio
 import threading
+
+# Imports bluetooth module
 import socket
 
-from TestIK import plot
+# Imports inverse kinematics modules and matplot
+import ikpy.chain
+import ikpy.utils.plot as plot_utils
+import ipywidgets
+import matplotlib.pyplot as plt
+
+import numpy as np
+import time
+import math
+from TestIK import plot, IK
+
+# Import functions from other python files
 from ControllerSupport import XboxController
+from VoiceRecognition import recognize_speech_from_mic
 
 # Ensures correct version of kivy is used
 kivy.require('2.3.1')
 
-sVal = [90, 90, 90, 90, 90, 90]
+
+position = [0,0,0]
+orientation = [0,0,0]
+
+chain = ikpy.chain.Chain.from_urdf_file("robot.urdf", active_links_mask=[False, True, True, True, True, True])
+
+sVal =
+sVal = [90,90,90,90,90,90]
+
 
 def toggle_claw():
-    pass
+    print("toggle")
 
 def move_x(direction):
-    pass
+    print("mx")
 
 def move_y(direction):
-    pass
+    print("my")
 
 def move_z(direction):
-    pass
+    print("mz")
 
 def rotate_x(direction):
-    pass
+    print("rx")
 
 def rotate_y(direction):
-    pass
+    print("ry")
 
 def rotate_z(direction):
-    pass
+    print("rz")
 
 # Function that repeats every second to update the servos
 async def update_servo(bt_socket):
@@ -70,21 +92,43 @@ async def update_servo(bt_socket):
         await asyncio.sleep(1)
 
 async def update_controller(joystick):
+    toggled = False
     while True:
-        input=joystick.read()
-        if input[0] != 1:
+        # Detects inputs and assigns it as variables
+        b, lx, ly, rx, ry, lb, rb = joystick.read()
+
+
+
+        if b ==0:
+            toggled = False
+        #toggles claw
+        elif b ==1 and not toggled :
+            toggled = True
             toggle_claw()
 
-        if input[1] != 0:
-            move_x(input[1])
-        if input[2] != 0:
-            move_y(input[1])
-        if input[1] != 0 and input[5] !=0:
-            move_z(input[1])
-        if input[1] != 0:
-            move_x(input[1])
+        # Dead zone region only calls function after certain value
+        dead_value = 0.2
 
-        await asyncio.sleep(0.5)
+        # Move x, y and z
+        if abs(lx)>=1-dead_value and lb !=0:
+            move_z(lx)
+        elif abs(lx)>=1-dead_value:
+            move_x(lx)
+        elif abs(ly)>=1-dead_value:
+            move_y(ly)
+
+
+        # Rotate x,y and z
+
+        if abs(rx) >= 1 - dead_value and lb != 0:
+            rotate_z(rx)
+        elif abs(rx) >= 1 - dead_value:
+            rotate_x(rx)
+        elif abs(ry) >= 1 - dead_value:
+            rotate_y(ry)
+
+
+        await asyncio.sleep(0.01)
 
 def start_loop(loop):
     asyncio.set_event_loop(loop)
