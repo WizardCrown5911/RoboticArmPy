@@ -30,18 +30,22 @@ from VoiceRecognition import recognize_speech_from_mic
 # Ensures correct version of kivy is used
 kivy.require('2.3.1')
 
-
 position = [0,0,0]
 orientation = [0,0,0]
 
 chain = ikpy.chain.Chain.from_urdf_file("robot.urdf", active_links_mask=[False, True, True, True, True, True])
 
-sVal =
 sVal = [90,90,90,90,90,90]
 
 
-def toggle_claw():
-    print("toggle")
+def toggle_claw(toggled ):
+
+    if toggled:
+        sVal[5] = 0
+        return False
+    else:
+        sVal[5] = 100
+        return True
 
 def move_x(direction):
     print("mx")
@@ -89,22 +93,25 @@ async def update_servo(bt_socket):
 
             num += 1
         temp = s
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.5)
 
 async def update_controller(joystick):
-    toggled = False
+    toggle = False
+    claw=True
+
     while True:
+
         # Detects inputs and assigns it as variables
         b, lx, ly, rx, ry, lb, rb = joystick.read()
 
 
 
         if b ==0:
-            toggled = False
+            toggle = False
         #toggles claw
-        elif b ==1 and not toggled :
-            toggled = True
-            toggle_claw()
+        elif b ==1 and not toggle :
+            toggle = True
+            claw =toggle_claw(claw)
 
         # Dead zone region only calls function after certain value
         dead_value = 0.2
@@ -162,8 +169,8 @@ if __name__ == "__main__":
     # Try to create a Bluetooth socket
     bt_socket = None
     try:
-        #bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-        #bt_socket.connect((HC06_ADDRESS, PORT))
+        bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+        bt_socket.connect((HC06_ADDRESS, PORT))
         print("Bluetooth connected successfully")
     except Exception as e:
         print(f"Bluetooth connection failed: {e}")
