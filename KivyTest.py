@@ -48,7 +48,7 @@ def toggle_claw(toggled ):
         return True
 
 def move_x(direction):
-    print("mx")
+    position[0]+=0.01*direction
 
 def move_y(direction):
     print("my")
@@ -136,6 +136,9 @@ async def update_controller(joystick):
 
 
         await asyncio.sleep(0.01)
+
+async def update_inverseKinematics(chain):
+    pass
 
 def start_loop(loop):
     asyncio.set_event_loop(loop)
