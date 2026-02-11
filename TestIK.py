@@ -27,10 +27,10 @@ def IK(chain,target_position,target_orientation):
 
     ik = chain.inverse_kinematics(target_position, target_orientation, orientation_mode="Y")
     angles = list(map(lambda r: math.degrees(r), ik.tolist()))
-    print("The angles:", angles)
+    #print("The angles:", angles)
 
     computed_position = chain.forward_kinematics(ik)
-    print("Computed position: %s" % ["%.2f" % elem for elem in computed_position[:3, 3]])
+    #print("Computed position: %s" % ["%.2f" % elem for elem in computed_position[:3, 3]])
     #plot(ik,computed_position)
     return angles
 

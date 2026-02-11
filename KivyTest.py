@@ -38,6 +38,9 @@ orientation = [0,0,0]
 
 sVal = [90,90,90,90,90,90]
 
+xymax = 2.3
+zmax = 3
+
 
 def toggle_claw(toggled ):
 
@@ -49,13 +52,16 @@ def toggle_claw(toggled ):
         return True
 
 def move_x(direction):
-    position[0]+=0.01*direction
+    if abs(position[0]) <= xymax :
+        position[0]+=0.01*direction
 
 def move_y(direction):
-    position[1]+=0.01*direction
+    if abs(position[1]) <= xymax:
+        position[1]+=0.01*direction
 
 def move_z(direction):
-    position[2]+=0.01*direction
+    if abs(position[2]) <= zmax:
+        position[2]+=0.01*direction
 
 def rotate_x(direction):
     orientation[0]+=0.01*direction
@@ -136,10 +142,10 @@ async def update_controller(joystick):
 
         await asyncio.sleep(0.01)
 
-async def update_inversekinematics(chain,tp,to):
+async def update_inversekinematics(chain):
     while True:
+        print(position,orientation)
         angles = IK(chain,position, orientation)
-        print(angles)
         await asyncio.sleep(0.5)
 
 def VoiceRecognition():
@@ -200,7 +206,7 @@ if __name__ == "__main__":
     loop1 = asyncio.new_event_loop()
     asyncio.run_coroutine_threadsafe(update_servo(bt_socket), loop1)
     asyncio.run_coroutine_threadsafe(update_controller(joystick), loop1)
-    asyncio.run_coroutine_threadsafe(update_inversekinematics(chain,position,orientation), loop1)
+    asyncio.run_coroutine_threadsafe(update_inversekinematics(chain), loop1)
 
     # Runs this loop in a separate thread
     threading.Thread(target=start_loop, args=(loop1,), daemon=True).start()
