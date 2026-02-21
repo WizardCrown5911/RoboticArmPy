@@ -36,7 +36,7 @@ kivy.require('2.3.1')
 position = [0,0,3]
 orientation = [0,0,0]
 
-sVal = [90,90,90,90,90,90]
+sVal = [90,90,90,90,90,100]
 
 xymax = 2.3
 zmax = 3
@@ -82,12 +82,13 @@ async def update_servo(bt_socket):
 
         for x in sVal:
             cmd += str(x) + ","
-        cmd = cmd[:-1]
+        cmd = cmd[:-1] + "\n"
 
 
         if cmd != temp:
             temp =cmd
             try:
+                print(cmd)
                 bt_socket.send(cmd.encode())
             except Exception as e:
                 print(f"Bluetooth send error: {e}")
@@ -137,7 +138,7 @@ async def update_controller(joystick):
 async def update_inversekinematics(chain):
     while True:
         angles = IK(chain,position, orientation)
-        sVal[0],sVal[1],sVal[2],sVal[3],sVal[4] = [int(angles[0]),int(angles[1]),int(angles[2]),int(angles[3]),int(angles[4])]
+        sVal[0],sVal[1],sVal[2],sVal[3],sVal[4] = [int(angles[0])+90,int(angles[1])+90,int(angles[2])+90,int(angles[3])+90,int(angles[4])+90]
         await asyncio.sleep(0.01)
 
 
@@ -183,7 +184,7 @@ if __name__ == "__main__":
     bt_socket = None
     try:
         bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-        bt_socket.connect((HC06_ADDRESS, PORT))
+        bt_socket.connect((HC06_ADDRESS, PORT,))
         print("Bluetooth connected successfully")
     except Exception as e:
         print(f"Bluetooth connection failed: {e}")

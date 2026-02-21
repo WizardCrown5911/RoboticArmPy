@@ -12,7 +12,7 @@ bt_socket.connect((HC06_ADDRESS, PORT))
 x = ""
 
 while x != "end":
-    x = input("Enter")
+    x = input("Enter") + "\n"
     bt_socket.send(x.encode())
 
 bt_socket.close()
