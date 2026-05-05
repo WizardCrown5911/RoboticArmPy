@@ -36,7 +36,7 @@ kivy.require('2.3.1')
 position = [0,0,3]
 orientation = [0,0,0]
 
-sVal = [90,90,90,90,90,90]
+sVal = [90,90,90,90,90,100]
 
 xymax = 2.3
 zmax = 3
@@ -75,36 +75,25 @@ def rotate_z(direction):
 # Function that repeats every second to update the servos
 async def update_servo(bt_socket):
 
-    # Creates temporary list to compare previous servo values with current
-    temp = sVal
     # Loops endlessly until the program ends
+    temp = ""
     while True:
+        cmd = ""
 
-        Val = (update_inversekinematics(chain)).append( sVal[5])
-        
-        # Creates list to be used for the temporary
-        s = []
-        # Number indexed used to define the index in the list and to select the servo No in Arduino Code
-        num = 1
-        # Loops through Values and gets the values adding them to the next temp list
-        for x in Val:
-            a = x
-            s.append(a)
-            # Comparing current values with previous and if they are different sends a command
-            if a != temp[num - 1]:
-                cmd = str(num) + " " + str(a)
+        for x in sVal:
+            cmd += str(x) + ","
+        cmd = cmd[:-1] + "\n"
+
+
+        if cmd != temp:
+            temp =cmd
+            try:
                 print(cmd)
+                bt_socket.send(cmd.encode())
+            except Exception as e:
+                print(f"Bluetooth send error: {e}")
 
-                if bt_socket:
-                    try:
-                        bt_socket.send(cmd.encode())
-                        await asyncio.sleep(0.5)
-                    except Exception as e:
-                        print(f"Bluetooth send error: {e}")
-
-            num += 1
-        temp = s
-        await asyncio.sleep(0.01)
+        await asyncio.sleep(0.05)
 
 async def update_controller(joystick):
     toggle = False
@@ -146,12 +135,12 @@ async def update_controller(joystick):
 
         await asyncio.sleep(0.01)
 
-def update_inversekinematics(chain):
+async def update_inversekinematics(chain):
     while True:
-
         angles = IK(chain,position, orientation)
-        angles = [int(angles[0]),int(angles[1]),int(angles[2]),int(angles[3]),int(angles[4])]
-        return angles
+        sVal[0],sVal[1],sVal[2],sVal[3],sVal[4] = [int(angles[0])+90,int(angles[1])+90,int(angles[2])+90,int(angles[3])+90,int(angles[4])+90]
+        await asyncio.sleep(0.01)
+
 
 def VoiceRecognition():
     text = str(recognize_speech_from_mic()).lower()
@@ -195,7 +184,7 @@ if __name__ == "__main__":
     bt_socket = None
     try:
         bt_socket = socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
-        bt_socket.connect((HC06_ADDRESS, PORT))
+        bt_socket.connect((HC06_ADDRESS, PORT,))
         print("Bluetooth connected successfully")
     except Exception as e:
         print(f"Bluetooth connection failed: {e}")
@@ -211,7 +200,7 @@ if __name__ == "__main__":
     loop1 = asyncio.new_event_loop()
     asyncio.run_coroutine_threadsafe(update_servo(bt_socket), loop1)
     asyncio.run_coroutine_threadsafe(update_controller(joystick), loop1)
-    #asyncio.run_coroutine_threadsafe(update_inversekinematics(chain), loop1)
+    asyncio.run_coroutine_threadsafe(update_inversekinematics(chain), loop1)
 
     # Runs this loop in a separate thread
     threading.Thread(target=start_loop, args=(loop1,), daemon=True).start()
