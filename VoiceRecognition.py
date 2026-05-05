@@ -36,3 +36,5 @@ if __name__ == "__main__":
         print("moving right")
     if "move" in text and "down" in text:
         print("moving down")
+    else:
+        print("invalid command")

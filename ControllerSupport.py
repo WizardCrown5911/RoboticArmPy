@@ -1,6 +1,4 @@
-# Source - https://stackoverflow.com/a/66867816
-# Posted by Tielessin, modified by community. See post 'Timeline' for change history
-# Retrieved 2026-02-04, License - CC BY-SA 4.0
+
 
 from inputs import get_gamepad
 import math
