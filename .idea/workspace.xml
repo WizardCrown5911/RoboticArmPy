@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5848d57-6e55-4039-8a8c-a966b4a94eaa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/RoboticArmPy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RoboticArmPy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ControllerSupport.py" beforeDir="false" afterPath="$PROJECT_DIR$/ControllerSupport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VoiceRecognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/VoiceRecognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KivyTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/KivyTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestIK.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestIK.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,24 +50,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.ControllerSupport.executor&quot;: &quot;Run&quot;,
-    &quot;Python.KivyTest.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Test IK.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TestIK.executor&quot;: &quot;Run&quot;,
-    &quot;Python.URDF viewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.VoiceRecognition.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/RoboticArmPy/python313&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.ControllerSupport.executor": "Run",
+    "Python.KivyTest.executor": "Run",
+    "Python.Test IK.executor": "Run",
+    "Python.TestIK.executor": "Run",
+    "Python.URDF viewer.executor": "Run",
+    "Python.VoiceRecognition.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/RoboticArmPy/python313",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="KivyTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RoboticArmPy" />

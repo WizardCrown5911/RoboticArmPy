@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import math
-from TestIK import plot, IK
+import TestIK
 
 # Import functions from other python files
 from ControllerSupport import XboxController
@@ -30,16 +30,23 @@ from VoiceRecognition import recognize_speech_from_mic
 # Ensures correct version of kivy is used
 kivy.require('2.3.1')
 
-
-#2.3 max for x and y and 3 max for z
-#default position
-position = [0,0,3]
-orientation = [0,0,0]
+velocity = [0.0] * 6  # [vx, vy, vz, wx, wy, wz]
+  # x, y, z
 
 sVal = [90,90,90,90,90,100]
 
+
+
 xymax = 2.3
 zmax = 3
+
+def apply_deadzone(x, dz=0.2):
+    if abs(x) < dz:
+        return 0.0
+    if x > 0:
+        return (x - dz) / (1 - dz)
+    else:
+        return (x + dz) / (1 - dz)
 
 
 def toggle_claw(toggled ):
@@ -51,108 +58,131 @@ def toggle_claw(toggled ):
         sVal[5] = 100
         return True
 
-def move_x(direction):
-    if abs(position[0]) <= xymax :
-        position[0]+=0.01*direction
 
-def move_y(direction):
-    if abs(position[1]) <= xymax:
-        position[1]+=0.01*direction
-
-def move_z(direction):
-    if abs(position[2]) <= zmax:
-        position[2]+=0.01*direction
-
-def rotate_x(direction):
-    orientation[0]+=0.01*direction
-
-def rotate_y(direction):
-    orientation[1] += 0.01 * direction
-
-def rotate_z(direction):
-    orientation[2] += 0.01 * direction
 
 # Function that repeats every second to update the servos
 async def update_servo(bt_socket):
+    global velocity
 
-    # Loops endlessly until the program ends
     temp = ""
-    while True:
-        cmd = ""
 
-        for x in sVal:
-            cmd += str(x) + ","
+    while True:
+        dt = 0.01
+
+        # Update joints using velocity IK
+        joints = TestIK.update_joints_from_velocity(np.array(velocity), dt)
+
+        # Convert to servo angles
+        angles = TestIK.get_servo_angles()
+        angles.append(sVal[5])  # claw
+
+        cmd= ""
+
+        for x in angles:
+            cmd += str(x) +","
         cmd = cmd[:-1] + "\n"
 
 
         if cmd != temp:
-            temp =cmd
+            temp = cmd
             try:
                 print(cmd)
-                bt_socket.send(cmd.encode())
+                if bt_socket:
+                    bt_socket.send(cmd.encode())
+                await asyncio.sleep(0.02)
             except Exception as e:
                 print(f"Bluetooth send error: {e}")
 
-        await asyncio.sleep(0.05)
+        await asyncio.sleep(dt)
+
+import TestIK  # ADD THIS
 
 async def update_controller(joystick):
+    global velocity
+
+    movement_mode = True
+    speed_mode = False
+
+    prev_rb = 0
+    prev_lb = 0
+
     toggle = False
-    claw=True
+    claw = True
+
+    rb_pressed = False
+    lb_pressed = False
 
     while True:
-
-        # Detects inputs and assigns it as variables
         b, lx, ly, rx, ry, lb, rb = joystick.read()
 
-        if b ==0:
+        lx = apply_deadzone(lx)
+        ly = apply_deadzone(ly)
+        rx = apply_deadzone(rx)
+        ry = apply_deadzone(ry)
+
+        # ---- CLAW ----
+        if b == 0:
             toggle = False
-        #toggles claw
-        elif b ==1 and not toggle :
+        elif b == 1 and not toggle:
             toggle = True
-            claw =toggle_claw(claw)
-
-        # Dead zone region only calls function after certain value
-        dead_value = 0.2
-
-        # Move x, y and z
-        if abs(lx)>=1-dead_value and lb !=0:
-            move_y(lx)
-        elif abs(lx)>=1-dead_value:
-            move_x(lx)
-        elif abs(ly)>=1-dead_value:
-            move_z(ly)
+            claw = toggle_claw(claw)
 
 
-        # Rotate x,y and z
+        # ---- RB TOGGLE (movement mode) ----
+        if rb == 1 and not rb_pressed:
+            movement_mode = not movement_mode
+            print(f"Movement mode: {movement_mode}")
+            rb_pressed = True
 
-        if abs(rx) >= 1 - dead_value and lb != 0:
-            rotate_y(rx)
-        elif abs(rx) >= 1 - dead_value:
-            rotate_x(rx)
-        elif abs(ry) >= 1 - dead_value:
-            rotate_z(ry)
+        if rb == 0:
+            rb_pressed = False
 
+        # ---- LB TOGGLE (speed mode) ----
+        if lb == 1 and not lb_pressed:
+            speed_mode = not speed_mode
+            print(f"Speed mode: {speed_mode}")
+            lb_pressed = True
+
+        if lb == 0:
+            lb_pressed = False
+
+        # ---- SPEED ----
+        if speed_mode:
+            pos_speed = 1.0
+            rot_speed = 0.04
+        else:
+            pos_speed = 0.3
+            rot_speed = 0.02
+
+        if movement_mode:
+            yaw = TestIK.get_base_yaw()
+
+
+            # Rotation matrix (2D)
+            cos_y = np.cos(yaw)
+            sin_y = np.sin(yaw)
+
+            # Controller input
+            forward = lx  # forward/back
+            strafe = -ly  # left/right
+
+            # Rotate into world frame
+            vx = pos_speed * (forward * cos_y - strafe * sin_y)
+            vy = pos_speed * (forward * sin_y + strafe * cos_y)
+            vz = pos_speed * ry  # up/down
+
+            velocity = [vx, vy, vz, 0, 0, 0]
+
+
+        else:
+            # Manual rotation
+            TestIK.adjust_joint(1, rot_speed * lx)  # base
+            TestIK.adjust_joint(4, rot_speed * rx)  # wrist
+            TestIK.adjust_joint(5, rot_speed * ry)  # wrist
+
+            velocity = [0, 0, 0, 0, 0, 0]
 
         await asyncio.sleep(0.01)
-
-async def update_inversekinematics(chain):
-    while True:
-        angles = IK(chain,position, orientation)
-        sVal[0],sVal[1],sVal[2],sVal[3],sVal[4] = [int(angles[0])+90,int(angles[1])+90,int(angles[2])+90,int(angles[3])+90,int(angles[4])+90]
-        await asyncio.sleep(0.01)
-
-
-def VoiceRecognition():
-    text = str(recognize_speech_from_mic()).lower()
-
-    if "move" in text and "up" in text:
-        move_z(1)
-    if "move" in text and "left" in text:
-        move_x(-1)
-    if "move" in text and "right" in text:
-        move_x(1)
-    if "move" in text and "down" in text:
-        move_z(-1)
 
 def start_loop(loop):
     asyncio.set_event_loop(loop)
@@ -200,7 +230,6 @@ if __name__ == "__main__":
     loop1 = asyncio.new_event_loop()
     asyncio.run_coroutine_threadsafe(update_servo(bt_socket), loop1)
     asyncio.run_coroutine_threadsafe(update_controller(joystick), loop1)
-    asyncio.run_coroutine_threadsafe(update_inversekinematics(chain), loop1)
 
     # Runs this loop in a separate thread
     threading.Thread(target=start_loop, args=(loop1,), daemon=True).start()
