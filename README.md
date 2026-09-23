@@ -1,7 +1,7 @@
 # Robotic Arm Controller
 
-A 6-servo robotic arm I designed in FreeCAD, 3D-printed and wired to an Arduino, plus the
-Python desktop app that drives it over Bluetooth. Built as my A-level Computer Science NEA (2025).
+A 6-servo robotic arm, adapted from an open-source design in FreeCAD, 3D-printed and wired to an Arduino, plus the
+Python desktop app that drives it over Bluetooth (all code my own). Built as my A-level Computer Science NEA (2025).
 
 <p>
   <img src="Images/arm-front.jpg" width="250" alt="The arm, front view">
