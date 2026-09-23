@@ -1,3 +1,4 @@
+import os
 import speech_recognition as sr
 
 def recognize_speech_from_mic():
@@ -12,7 +13,7 @@ def recognize_speech_from_mic():
             audio = recognizer.listen(source, timeout=5, phrase_time_limit=10)
 
         try:
-            API= "OLBSHUX5DGNUTIB5RMIE2MMF657YNRIM"
+            API = os.environ.get("WIT_AI_KEY")
             text = recognizer.recognize_wit(audio, key=API, )
             print(text)
             return text
